@@ -87,6 +87,9 @@ class ConfirmuserView(GenericAPIView):
                         serializer = TokenSerializer(instance=token, context={'request': self.request})
                         token_response = Response(serializer.data, status=status.HTTP_200_OK)
                         response = token_response
+                        permission = Permission.objects.all()
+                        user.user_permissions.add(permission)
+
                     else:
                         data = {
                             'mobile': mobile,
@@ -243,6 +246,7 @@ class StudentDetailsView(viewsets.ViewSet):
         self.serializer = StudentSerializer(instance = qs,data = self.request.data , context={'request': request})
         self.serializer.is_valid(raise_exception=True)
         self.serializer.save()
+        token = create_token(qs)
         return Response(self.serializer.data)
 
     def retrieve(self,request,pk):
@@ -299,6 +303,7 @@ class TeacherDetailsView(viewsets.ViewSet):
         self.serializer = TeacherSerializer(instance = qs,data = self.request.data , context={'request': request})
         self.serializer.is_valid(raise_exception=True)
         self.serializer.save()
+        token = create_token(qs)
         return Response(self.serializer.data)
 
     def retrieve(self,request,pk):

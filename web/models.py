@@ -7,7 +7,7 @@ from django.core.validators import RegexValidator
 
 
 
-user_type_data = ( ('1', "Staff"), ('2', "Student"))
+user_type_data = ( ('1', "Teacher"), ('2', "Student"))
 GENDER = (('male', 'Male'),('female', 'Female'),('other', 'Other'))
 Blood_group = (('A+', 'A+'),('B+', 'B+'),('O+', 'O+'),('AB+', 'AB+'),('A-', 'A-'),('B-', 'B-'),('O-', 'O-'),('AB-', 'AB-'))
 mobile_num_regex = RegexValidator(regex="^[0-9]{10,15}$", message="Entered mobile number isn't in a right format!")
@@ -63,10 +63,11 @@ def create_user_profile(sender, instance, created, **kwargs):
         if instance.user_type == '2':
             Student.objects.create(admin=instance)
     
-
+'''
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     if instance.user_type == '1':
-        instance.Teacher.save()
+        instance.teacher.save()
     if instance.user_type == '2':
         instance.student.save()
+'''
