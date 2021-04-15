@@ -25,6 +25,7 @@ urlpatterns = [
     path('forgotpassword/',Forgotpwdview.as_view(),name = 'forgotpassword'),
     path('forgotpassword/confirm/',ConfirmpwdotpView.as_view(),name = 'confirmforgotpassword'),
     path('newpassword/',NewpasswordView.as_view(),name = 'newpassword'),
+    
     path('student/',StudentDetailsView.as_view({
         'get':'list',
         'post':'create',

@@ -48,3 +48,35 @@ Data:
 
 +JWT for authentication
 
+
+url http://127.0.0.1:8000/student/
+Request:GET
+
+
+
+url http://127.0.0.1:8000/student/
+Request :Post
+data
+{
+    "admission_number":"123456567",
+    "firstname":"Vikram",
+    "lastname":"Jeet",
+    "gender":"male",
+    "blood_group":"B+",
+    "date_of_birth":"1998-01-18",
+    "address":"demo",
+    "parent_mobile_number":"8572881328"
+
+}
+
+url http://127.0.0.1:8000/student/<int:id>/
+request :GET
+Will return single user with id
+
+url http://127.0.0.1:8000/student/<int:id>/
+request Delete
+will delete user 
+
+url http://127.0.0.1:8000/student/<int:id>/
+Request PUT
+data
