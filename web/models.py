@@ -45,7 +45,7 @@ class Teacher(models.Model):
     firstname = models.CharField(max_length=200,null = True)
     lastname = models.CharField(max_length=200,null = True)
     mobile_number = models.CharField(validators=[mobile_num_regex], max_length=13, blank=True,null = True)
-    address = models.TextField()
+    address = models.TextField(null = True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     #objects = models.Manager()

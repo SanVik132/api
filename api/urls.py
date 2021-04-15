@@ -20,7 +20,8 @@ from web.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/register/',register.as_view(),name = 'register'),
+
+    path('',register.as_view(),name = 'register'),
     path('accounts/register/confirm/', ConfirmuserView.as_view(), name='userconfirm'),
     path('forgotpassword/',Forgotpwdview.as_view(),name = 'forgotpassword'),
     path('forgotpassword/confirm/',ConfirmpwdotpView.as_view(),name = 'confirmforgotpassword'),

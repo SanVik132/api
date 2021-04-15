@@ -338,30 +338,33 @@ class TeacherDetailsView(viewsets.ViewSet):
                 response = Response('Oops! User does not Have permission', status=status.HTTP_400_BAD_REQUEST)
                 return response
         except:
-            return Response("Address does not exist")
+            return Response("Something went wrong")
 
     def create(self,request):
         #user = request.user
-        if request.user.has_perm('web.add_teacher'): # checking permissions
-            self.request = request
-            self.serializer1 = UserDetailsSerializer(data ={'username' : self.request.data['mobile_number'],'password':self.request.data['mobile_number'],'user_type':'1'}, context={'request': request})
-            self.serializer1.is_valid(raise_exception=True)
-            self.serializer1.save()
-            qs = Teacher.objects.get(admin = self.serializer1.data['id'])
-            self.request = request       
-            self.serializer = TeacherSerializer(instance = qs,data = self.request.data , context={'request': request})
-            self.serializer.is_valid(raise_exception=True)
-            self.serializer.save()
-            token = create_token(qs.admin)
-            all_perms_on_this_modal = Permission.objects.filter(codename__contains=Teacher)
-            for p in all_perms_on_this_modal:
-                qs.admin.user_permissions.add(p)
-            permission = Permission.objects.get(name = 'Can view teacher')
-            qs.admin.user_permissions.add(permission)
-            return Response(self.serializer.data)
-        else:
-            response = Response('Oops! User does not eHave permission', status=status.HTTP_400_BAD_REQUEST)
-            return(response)
+        try:
+            if request.user.has_perm('web.add_teacher'): # checking permissions
+                self.request = request
+                self.serializer1 = UserDetailsSerializer(data ={'username' : self.request.data['mobile_number'],'password':self.request.data['mobile_number'],'user_type':'1'}, context={'request': request})
+                self.serializer1.is_valid(raise_exception=True)
+                self.serializer1.save()
+                qs = Teacher.objects.get(admin = self.serializer1.data['id'])
+                self.request = request       
+                self.serializer = TeacherSerializer(instance = qs,data = self.request.data , context={'request': request})
+                self.serializer.is_valid(raise_exception=True)
+                self.serializer.save()
+                token = create_token(qs.admin)
+                all_perms_on_this_modal = Permission.objects.filter(codename__contains=Teacher)
+                for p in all_perms_on_this_modal:
+                    qs.admin.user_permissions.add(p)
+                permission = Permission.objects.get(name = 'Can view teacher')
+                qs.admin.user_permissions.add(permission)
+                return Response(self.serializer.data)
+            else:
+                response = Response('Oops! User does not eHave permission', status=status.HTTP_400_BAD_REQUEST)
+                return(response)
+        except:    
+            return Response("Something went wrong")
 
 
     def retrieve(self,request,pk):
