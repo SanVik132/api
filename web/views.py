@@ -273,7 +273,17 @@ class StudentDetailsView(viewsets.ViewSet):
         else:
             response = Response('Oops! User does not Have permission', status=status.HTTP_400_BAD_REQUEST)
             return response
-
+    def self_student(self,request):
+        try:
+            if request.user.user_type == '2':
+                qs = Student.objects.get(admin = request.user)
+                self.serializer = StudentSerializer(qs)
+                return Response(self.serializer.data)
+            else:
+                response = Response('Oops! User does not eHave permission', status=status.HTTP_400_BAD_REQUEST)
+                return response
+        except:
+            return Response(" Not exists")  
 
 
     def retrieve(self,request,pk):

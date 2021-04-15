@@ -133,3 +133,7 @@ Data
     "mobile_number":"8572881328"
 
 }
+
+## for details of student(self):
+url http://127.0.0.1:8000/stdent-self/
+method = GET

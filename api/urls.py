@@ -36,7 +36,9 @@ urlpatterns = [
         'put':'update',
         'delete':'destroy',
         })),
-
+    path('stdent-self/',StudentDetailsView.as_view({
+        'get':'self_student',
+        })),
     path('teacher/',TeacherDetailsView.as_view({
         'get':'list',
         'post':'create',
