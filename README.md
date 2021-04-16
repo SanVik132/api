@@ -37,6 +37,10 @@ python manage.py runserver
 ## Usage
 Please navigate to urls.py for all links.
 
+## User
+username:admin
+password:admin
+
 
 ## api urls
 
